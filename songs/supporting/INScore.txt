@@ -1,0 +1,44 @@
+
+
+
+
+	//////////////////////////////
+	// • curve: a sequence of 4-points bezier cubic curve. If the end-point of a curve doesn’t match the start- point of the following one, the curves are linked by a straight line. The first curve follows the last curve. The inner space defined by the sequence of curves is filled, using the object color. The points coordinates are handled like in a polygon.
+
+	curve {arg winString="window", componentNum=0, curvePointsArray=[1.0, 0.0, 0.5, 0.0, 0.5, 0.5, 1.0, 0.5];
+		realMsg = baseString ++ winString ++ "/curve" ++ componentNum.asString;
+
+		curvePointsString="";
+
+		// realMsg = msgString ++ "/curve" ++ componentNum.asString;
+
+		case
+		{ curvePointsArray.size < 6 } {
+			"a minimum of three points (each of two coordinates) is required to make a curve".postln;
+		}
+
+
+		{ (curvePointsArray.size == 6) || (curvePointsArray.size == 7) } {
+			netAddr.sendMsg(realMsg, "set", "curve", curvePointsArray[0], curvePointsArray[1], curvePointsArray[2], curvePointsArray[3], curvePointsArray[4], curvePointsArray[5] );
+		}
+
+
+		{ (curvePointsArray.size == 8) || (curvePointsArray.size == 9) } {
+			netAddr.sendMsg(realMsg, "set", "curve", curvePointsArray[0], curvePointsArray[1], curvePointsArray[2], curvePointsArray[3], curvePointsArray[4], curvePointsArray[5], curvePointsArray[6], curvePointsArray[7] );
+		}
+
+
+		{ (curvePointsArray.size == 10) || (curvePointsArray.size == 11) } {
+			netAddr.sendMsg(realMsg, "set", "curve", curvePointsArray[0], curvePointsArray[1], curvePointsArray[2], curvePointsArray[3], curvePointsArray[4], curvePointsArray[5], curvePointsArray[6], curvePointsArray[7], curvePointsArray[8], curvePointsArray[9] );
+		}
+
+
+		{ (curvePointsArray.size == 16) || (curvePointsArray.size == 17) } {
+			netAddr.sendMsg(realMsg, "set", "curve", curvePointsArray[0], curvePointsArray[1], curvePointsArray[2], curvePointsArray[3], curvePointsArray[4], curvePointsArray[5], curvePointsArray[6], curvePointsArray[7], curvePointsArray[8], curvePointsArray[9], curvePointsArray[10], curvePointsArray[11], curvePointsArray[12], curvePointsArray[13], curvePointsArray[14], curvePointsArray[15] );
+		}
+
+		{ curvePointsArray.size > 16 } {
+			"maximum number of supported points exceeded!".postln;
+		};
+	}
+

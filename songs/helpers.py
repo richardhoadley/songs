@@ -5,6 +5,8 @@ import tempfile
 
 from neoscore.core import neoscore
 
+print("Number of arguments: ", str(sys.argv))
+
 """Scaffolding for example execution"""
 
 output_dir = pathlib.Path(__file__).parent / "output"
