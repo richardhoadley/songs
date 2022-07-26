@@ -5,6 +5,7 @@ import math
 import random
 import time
 import pyOSC3
+import sys
 
 from helpers import render_example
 
@@ -96,7 +97,23 @@ l1 = Path.straight_line(
 
 # SCORE ###################################################
 
+
 Text((Mm(5), Mm(((pageHeight-(margins*2))*0.08)+10)), None, "percussion", scale=1.1)
+
+"""
+r1 = Path.rect(
+               #(Mm(4), Mm((pageHeight-(margins*2))*0.08)),
+                        (Mm(2), Mm(20)),
+                        None,
+                        Mm(32),
+                        Mm(14),
+                        #Brush(Color(255, 255, 0, int(40*randColour))),
+                        Brush(Color(255, 255, 255, 0)),
+                        Pen(color="#aaaaaaff", thickness=Mm(1.2)),
+                        )
+                        """
+
+r1 = Path.rect((Mm(2), Mm(20)), None, Mm(32), Mm(14), Brush(Color(255, 255, 255, 0)), Pen(color="#aaaaaaff", thickness=Mm(1.2)))
 
 
 
@@ -189,7 +206,7 @@ Path.straight_line(
 
 Text((Mm(5), Mm(((pageHeight-(margins*2))*0.5)+10)), None, "melody instrument", scale=1.1)
 
-
+r2 = Path.rect((Mm(2), Mm(((pageHeight-(margins*2))*0.5)+2)), None, Mm(48), Mm(14), Brush(Color(255, 255, 255, 0)), Pen(color="#aaaaaaff", thickness=Mm(1.2)))
 
 
 
@@ -210,21 +227,19 @@ def countTime():
 
 
 def refresh_func(time):
+    """
     #random.seed()
     #randPosX = random.random()
     #sinPos = math.sin((time / 2)) * 10
     #e2.y = Mm(sinPos)
     #print(startTime)
+    """
     thisTime = countTime()
     linePos = (thisTime-startTime)*6 # higher final number = more movement
-    #print(linePos)
     l1.x = Mm(linePos)
     if linePos > 20.0:
-        #print("hello")
         nowTime = setStartTime()
-        #print(nowTime)
         linePos = (thisTime-nowTime)*4
-#print(linePos)
 
 
 ######################################################################################################
@@ -232,11 +247,22 @@ def refresh_func(time):
 
 percVOffset = 20
 
+# if dynamic rendering is used, the annotations on the first page need moving to the right:
+if "-d" in str(sys.argv):
+    dynOffset = 8
+else:
+    dynOffset = 0
+
+
+
 
 # num, page (parent), length, height (-height <> height), xPos, yPos, xoffset, yoffset, rotation, color
-lineHOfEllipses(random.randrange(6, 9, 1), pageNum, 3, 3, 0, 0, 0, 25+percVOffset, 30, "#000000ff")
+lineHOfEllipses(random.randrange(6, 9, 1), pageNum, 3, 3, 0, 0, 10, 25+percVOffset, 30, "#000000ff")
 
-lineHOfEllipses(random.randrange(4, 7, 1), pageNum, 3, 3, 0, 0, 20, random.randrange(32, 36, 1)+percVOffset, 45, "#000000ff")
+lineHOfEllipses(random.randrange(4, 7, 1), pageNum, 3, 3, 0, 0, 15, random.randrange(32, 36, 1)+percVOffset, 45, "#000000ff")
+
+if "-a" in str(sys.argv):
+    Text((unit(-24 + dynOffset), unit(-68)), upper_staff, "lineHOfEllipses: horizontal line of ellipses", expressive_font, scale=0.8)
 
 
 
@@ -356,6 +382,9 @@ curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curve
 # num, parent, length, height (-height <> height), xPos, yPos, xoffset, yoffset, rotation
 manyEllipses(10, pageNum, 4, 4, 20, 20, 60, 10+percVOffset, 60, "#444444ff")
 
+if "-a" in str(sys.argv):
+    Text((unit(-4 + dynOffset), unit(-76)), upper_staff, "a cluster of ellipses (see function).", expressive_font, scale=0.8)
+
 
 # oneEllipse(120, 40, neoscore.document.pages[0], 10, 2, 45, "#ff0000ff")
 
@@ -366,6 +395,23 @@ stones(10, 100, 30+percVOffset)
 
 stones(10, 140, 20+percVOffset)
 
+if "-a" in str(sys.argv):
+    Text((unit(28 + dynOffset), unit(-76)), upper_staff, "clusters of stones (see function).", expressive_font, scale=0.8)
+    Text((unit(28 + dynOffset), unit(-73)), upper_staff, "these are different from 'ellipses'", expressive_font, scale=0.8)
+    Text((unit(28 + dynOffset), unit(-70)), upper_staff, "ellipses can be rotated, whereas stones cannot", expressive_font, scale=0.8)
+
+
+
+
+
+
+
+
+
+if "-a" in str(sys.argv):
+    Text((unit(-8 + dynOffset), unit(-34)), upper_staff3, "auto-generated haiku using vocabularies based on references", expressive_font, scale=0.8)
+    Text((unit(-8 + dynOffset), unit(-31)), upper_staff3, "to types of stone, metals, or woods", expressive_font, scale=0.8)
+    Text((unit(-8 + dynOffset), unit(-28)), upper_staff3, "haikus could be read, interpreted, played back or simply inform the mood:", expressive_font, scale=0.8)
 
 haikuText = haiku()
 #text = Text((Mm(50), Mm(-10)), None, haikuText, breakable=True)
@@ -375,7 +421,10 @@ text = RichText((Mm(270), Mm(140)), None, haikuText)
 
 
 # num, parent, length, height (-height <> height), xPos, yPos, xoffset, yoffset
-manytings(20, 0, 35, 2, 70, 20, 50, 50+percVOffset)
+manytings(20, 0, 35, 1.5, 70, 20, 50, 50+percVOffset)
+
+if "-a" in str(sys.argv):
+    Text((unit(-4 + dynOffset), unit(-36)), upper_staff, "a cluster of 'tings' to be played on resonating metal objects", expressive_font, scale=0.8)
 
 
 
@@ -421,21 +470,40 @@ Text((Mm(5), Mm(((pageHeight-(margins*2))*0.5)+10)), None, "melody instrument", 
 # num, page (parent), length, height (-height <> height), xPos, yPos, xoffset, yoffset, rotation, color
 #lineHOfEllipses(10, pageNum, 3, 3, 0, 0, 0, 10, 90, "#000000ff")
 
-lineVOfEllipses(4, pageNum, 7, 7, 0, 6, 20, -20, 45, "#000000ff")
-lineVOfEllipses(4, pageNum, 7, 7, 0, 6, 38, -38, 45, "#000000ff")
-lineVOfEllipses(4, pageNum, 7, 7, 0, 6, 56, -56, 45, "#000000ff")
-lineVOfEllipses(4, pageNum, 8, 8, 0, 6, 73, -73, 45, "#000000ff")
+lineVOfEllipses(3, pageNum, random.randrange(2, 4, 1), random.randrange(2, 4, 1), 0, random.randrange(-1, 1, 1), 20, random.randrange(9, 11, 1), 45, "#000000ff")
+lineVOfEllipses(3, pageNum, 5, 5, 0, 0, 38, 10, 45, "#000000ff")
+lineVOfEllipses(3, pageNum, 5, 5, 0, 0, 56, 10, 45, "#000000ff")
+lineVOfEllipses(3, pageNum, 6, 5, 0, 0, 73, 10, 45, "#000000ff")
 
 
+# this is the 'line' based notation for the melody instrument
+# these are the stave definition and the clef"
+staffCurve = Staff((Mm(20), Mm(180)), neoscore.document.pages[1], Mm(80), staff_group)
+staffClef = Clef(unit(0), staffCurve, "tenor") #line
+
+Dynamic((unit(-4), unit(-85)), staffCurve, "p")
+
+if "-a" in str(sys.argv):
+    Text((unit(0), unit(-98)), staffCurve, "'chords' of stones (or wood or metal)", expressive_font)
+    Text((unit(0), unit(-95)), staffCurve, "technically, these are lineVOfEllipses (vertical lines of ellipses)", expressive_font)
+    Text((unit(0), unit(-79)), staffCurve, "should amplitude be determined by ellipse size?", expressive_font)
 
 haikuText = haiku()
 RichText((Mm(260), Mm(80)), neoscore.document.pages[1], haikuText)
 
+if "-a" in str(sys.argv):
+    Text((unit(70), unit(-92)), staffCurve, "an elaborate cluster of stones, metal and wood", expressive_font)
+    Text((unit(70), unit(-89)), staffCurve, "this would require a particular suspended percussion set up", expressive_font)
 
 # num, length, height (-height <> height), xPos, yPos, xoffset, yoffset, rotation, color
-manyEllipses(40, pageNum, 2, 2, 120, 20, 130, 40, 360, "#000000ff")
+manyEllipses(40, pageNum, 2, 2, 120, 20, 140, 40, 360, "#000000ff")
 
+# num, parent, length, height (-height <> height), xPos, yPos, xoffset, yoffset
+manytings(30, pageNum, 12, 1, 80, 15, 180, 30) # now without percussion v offset as title is not on second page
 
+# Color(165, 42, 42, 255)
+# num, parent (pageNum), xMin, xMax, yMin, yMax, length, height, rgba, alphaRand, rotationRand
+manySticks(20, pageNum, 190, 280, 40, 60, 8, 2, [100, 42, 42, 255], 0.5, [358, 362])
 
 
 ###################################################################################################
@@ -443,10 +511,7 @@ manyEllipses(40, pageNum, 2, 2, 120, 20, 130, 40, 360, "#000000ff")
 # curves
 ###################################################################################################
 
-# this is the 'line' based notation for the melody instrument
-# these are the stave definition and the clef"
-staffCurve = Staff((Mm(20), Mm(180)), neoscore.document.pages[1], Mm(80), staff_group)
-staffClef = Clef(unit(0), staffCurve, "tenor") #line
+
 
 curve = Path((Mm(10), Mm(3)), staffCurve, Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.8)))
 curve.cubic_to(Mm(10), Mm(-2), Mm(12), Mm(3), Mm(8), Mm(3))
@@ -467,13 +532,14 @@ curve.cubic_to(Mm(random.randrange(7, 18, 1)), Mm(1), Mm(random.randrange(7, 18,
 
 
 # wiggles
+"""
 random_wiggles = [
                   random.choice(["wiggleRandom1", "wiggleRandom2", "wiggleRandom3", "wiggleRandom4"])
                   for i in range(8)
                   ]
 
 MusicText((Mm(120), unit(4)), staffCurve, random_wiggles)
-
+"""
 
 
 
@@ -556,7 +622,7 @@ ellipse.cubic_to(Mm(xm - ox), Mm(ye), Mm(ZERO), Mm(ym + oy), Mm(ZERO), Mm(ym))
 
 # num, length, height (-height <> height), xPos, yPos, xoffset, yoffset, rotation, color
 manyEllipses(40, pageNum, 2, 2, 110, 30, 120, 140, 360, "#000000ff")
-Text((unit(50), unit(-25)), staffCurve, "sul pont., spiccatto, staccattisimmo, ad libitum, amplitude according to ellipse size", expressive_font)
+Text((unit(50), unit(-25)), staffCurve, "sul pont., spiccatto, staccattisimmo, ad libitum, colla parte, amplitude according to ellipse size", expressive_font)
 Dynamic((unit(50), unit(-10)), staffCurve, "ppp")
 
 
@@ -567,8 +633,13 @@ Dynamic((unit(50), unit(-10)), staffCurve, "ppp")
 # rendering
 ###################################################################################################
 
+if "-d" in str(sys.argv):
+    neoscore.show(refresh_func)
+else:
+    render_example("songs003")
 
-render_example("songs003")
+
+#render_example("songs003")
 
 
 

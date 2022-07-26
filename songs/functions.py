@@ -130,7 +130,7 @@ def manyEllipses(num, parent, posXLength, posYHeight, xPos, yPos, posXOffSet, po
 # create a horizontal line of ellipses
 def lineHOfEllipses(num, parent, posXLength, posYHeight, xPos, yPos, posXOffSet, posYOffSet, rotation, color):
     random.seed()
-    for i in range(1, num):
+    for i in range(0, num):
         randPosX = random.random()
         randPosY = random.random()
         randXLength = random.random()
@@ -146,13 +146,13 @@ def lineHOfEllipses(num, parent, posXLength, posYHeight, xPos, yPos, posXOffSet,
 # create a vertical line of ellipses (chord)
 def lineVOfEllipses(num, parent, posXLength, posYHeight, xPos, yPos, posXOffSet, posYOffSet, rotation, color):
     random.seed()
-    for i in range(1, num):
+    for i in range(0, num):
         randPosX = random.random()
         randPosY = random.random()
         randXLength = random.random()
         randYHeight = random.random()
         randRotation = random.random()
-        oneEllipse(posXOffSet, yPos*randPosY+posYOffSet+posXOffSet+(i*4), neoscore.document.pages[parent], posXLength*(randXLength*0.2)+2, posYHeight*(randYHeight*0.2)+2, rotation*randRotation, color)
+        oneEllipse(posXOffSet, yPos*randPosY+posYOffSet+posYOffSet+(i*4), neoscore.document.pages[parent], posXLength*(randXLength*0.2)+2, posYHeight*(randYHeight*0.2)+2, rotation*randRotation, color)
 
 
 # num, length, height (-height <> height), xPos, yPos, xoffset, yoffset, rotation
