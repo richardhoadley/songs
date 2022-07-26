@@ -21,39 +21,35 @@ def haiku():
     random.seed()
     num = random.randrange(0, 3, 1)
     
-    if num == 0:
-        print("stone!")
-        wordList1 = ["Stony", "Crystalline", "Igneous", "Metamorphic", "Sedimentary", "Silicate"] # 3
+    if num == 0: # stone
+        wordList1 = ["Stony", "Crystalline", "Igneous", "Metamorphic", "Sediment", "Silicate"] # 3
         wordList2 = ["shiver", "rock", "marble", "feldspar", "mineral", "quartz", "gem", "opal", "ruby", "flint"] # 2
 
         wordList3 = ["Rough-cut", "Smooth", "Precious", "Bright", "Translucent", "Invaluable", "Brilliant", "Precious", "Craggy", "Worthless"]
         wordList4 = ["light", "hard", "dark", "brittle", "crumbly", "chalky"]
-        wordList5 = ["habit", "hardness", "lustre", "diaphaneity", "colour", "fracture", "parting", "magnetism", "fluorescence", "radioactivity", "taste", "smell"]
-        #wordList5 = ["scenery","season", "colours","lights","Spring","Winter","Summer","Autumn"]
+        wordList5 = ["habit", "hardness", "lustre", "diaphaneity", "colour", "fracture", "parting", "taste", "smell"]
 
         wordList6 = ["Immovable", "Unbreakable", "Irreplaceable", "Massive", "Irrevocable"]
         wordList7 = ["inspiration", "imagination", "wisdom", "thoughts"]
     
-    elif num == 1:
-        print("metal!")
+    elif num == 1: # metal
         # 5
-        wordList1 = ["Ironic", "Steely", "Metallic", "Golden", "Silver", "Metamorphic", "Sedimentary", "Silicate"] # 3
+        wordList1 = ["Ironic", "Steely", "Metallic", "Metalloid", "Silvery"] # 3
         wordList2 = ["mirror", "sheeting", "anvil", "ringing", "clasping", "leaden", "needle"] # 2
     
         # 7
-        wordList3 = ["Reflecting this", "Displaying a", "Anticipating", "Welding a", "Smelting the"] # 4
+        wordList3 = ["Reflecting this", "Displaying a", "Anticipating", "Welding a", "Smelting the", "Titanium"] # 4
         wordList4 = ["sharp", "true", "flat", "cold", "hard", "dense"] # 1
-        wordList5 = ["surface", "ringing", "shining", "iron", "copper", "cobalt", "cutting", "slicing"] # 2
+        wordList5 = ["surface", "ringing", "shining", "iron", "copper", "cobalt", "cutting", "slicing", "steely", "magnetism", "fluorescence", "radioactivity"] # 2
     
         # 5
         wordList6 = ["Beautiful", "Unchanging", "Corrosive", "Resonant", "Corroding", "Chromium", "Manganese", "Resonant"] # 3
         wordList7 = ["silence", "liquid", "solid"] # 2
     
     elif num == 2:
-        print("wood!")
         # 5
-        wordList1 = ["Wooden limb", "Climbing branch"] # 3
-        wordList2 = ["splinter", "cleavage"] # 2
+        wordList1 = ["Wooden limb", "Climbing branch", "Timberland", "Topiary"] # 3
+        wordList2 = ["splinter", "shiver", "needle", "shred", "fragment", "shaving", "paring"] # 2
         
         # 7
         wordList3 = ["Arboreal", "Displaying a", "Trees that show us", "tenacity"] # 4
@@ -61,8 +57,8 @@ def haiku():
         wordList5 = ["surface", "ringing", "shining", "iron", "copper", "cobalt", "cutting", "slicing"] # 2
         
         # 5
-        wordList6 = ["Beautiful"] # 3
-        wordList7 = ["silence", "solid"] # 2
+        wordList6 = ["Beautiful", "Ligneous"] # 3
+        wordList7 = ["silence", "solid", "forest", "seedling", "sapling", "seedling"] # 2
 
     wordIndex1=randint(0, len(wordList1)-1)
     wordIndex2=randint(0, len(wordList2)-1)
@@ -76,7 +72,7 @@ def haiku():
     haiku = haiku + wordList3[wordIndex3] + " " + wordList4[wordIndex4] + " " + wordList5[wordIndex5]  + ",<BR>"
     haiku = haiku + wordList6[wordIndex6] + " " + wordList7[wordIndex7] + "."
 
-    print(haiku)
+#print(haiku)
     return(haiku)
 
 """

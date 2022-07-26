@@ -1,4 +1,4 @@
-# expressive materials
+# songs of metal, wood, and stone
 # percussion and melody instrument
 
 import math
@@ -40,6 +40,7 @@ from neoscore.core.brush import Brush
 from neoscore.core.color import Color
 from neoscore.core.path import Path
 from neoscore.core.pen import Pen
+from neoscore.core.pen import PenPattern
 from neoscore.core.point import ORIGIN, Point
 from neoscore.core.positioned_object import PositionedObject
 from neoscore.core.text import Text
@@ -78,7 +79,7 @@ pageNum = 0
 # title ###################################################
 materials_list = list(["stone", "wood", "metal"])
 random.shuffle(materials_list)
-print(materials_list)
+# print(materials_list)
 # Output 222
 
 title = Text((Mm(120), Mm(12)), None, "Songs of " + materials_list[0] + ", " + materials_list[1] + " and " + materials_list[2], scale=1.5)
@@ -248,10 +249,11 @@ def refresh_func(time):
 percVOffset = 20
 
 # if dynamic rendering is used, the annotations on the first page need moving to the right:
-if "-d" in str(sys.argv):
-    dynOffset = 8
-else:
-    dynOffset = 0
+if len(sys.argv) > 1:
+    if "d" in str(sys.argv[1]):
+        dynOffset = 8
+    else:
+        dynOffset = 0
 
 
 
@@ -261,8 +263,9 @@ lineHOfEllipses(random.randrange(6, 9, 1), pageNum, 3, 3, 0, 0, 10, 25+percVOffs
 
 lineHOfEllipses(random.randrange(4, 7, 1), pageNum, 3, 3, 0, 0, 15, random.randrange(32, 36, 1)+percVOffset, 45, "#000000ff")
 
-if "-a" in str(sys.argv):
-    Text((unit(-24 + dynOffset), unit(-68)), upper_staff, "lineHOfEllipses: horizontal line of ellipses", expressive_font, scale=0.8)
+if len(sys.argv) > 1:
+    if "a" in str(sys.argv[1]):
+        Text((unit(-24 + dynOffset), unit(-68)), upper_staff, "lineHOfEllipses: horizontal line of ellipses", expressive_font, scale=0.8)
 
 
 
@@ -352,13 +355,13 @@ line.line_to(Mm(20), Mm(10)) # from that point, 0 vertically (20-20) and 10 hori
 line.line_to(Mm(40), Mm(10))
 
 
-line = Path((Mm(290), Mm(190)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.5)))
+line = Path((Mm(285), Mm(190)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.5)))
 line.line_to(Mm(15), Mm(0)) #
 line.line_to(Mm(15), Mm(-6)) #
 line.line_to(Mm(29), Mm(-8)) # glissando from -6 to -8
 
 ##################################
-# curves
+# final curve in WCPN
 ##################################
 
 random.seed()
@@ -371,7 +374,7 @@ for i in range(0, 9):
     curveListX.append(((curveSizeX*2)*random.random())-(curveSizeX*0.2))
     curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
 
-curve = Path((Mm(325), Mm(188)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.5)))
+curve = Path((Mm(315), Mm(188)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.5)))
 curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
 curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
 curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
@@ -382,8 +385,9 @@ curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curve
 # num, parent, length, height (-height <> height), xPos, yPos, xoffset, yoffset, rotation
 manyEllipses(10, pageNum, 4, 4, 20, 20, 60, 10+percVOffset, 60, "#444444ff")
 
-if "-a" in str(sys.argv):
-    Text((unit(-4 + dynOffset), unit(-76)), upper_staff, "a cluster of ellipses (see function).", expressive_font, scale=0.8)
+if len(sys.argv) > 1:
+    if "a" in str(sys.argv[1]):
+        Text((unit(-4 + dynOffset), unit(-76)), upper_staff, "a cluster of ellipses (see function).", expressive_font, scale=0.8)
 
 
 # oneEllipse(120, 40, neoscore.document.pages[0], 10, 2, 45, "#ff0000ff")
@@ -395,23 +399,18 @@ stones(10, 100, 30+percVOffset)
 
 stones(10, 140, 20+percVOffset)
 
-if "-a" in str(sys.argv):
-    Text((unit(28 + dynOffset), unit(-76)), upper_staff, "clusters of stones (see function).", expressive_font, scale=0.8)
-    Text((unit(28 + dynOffset), unit(-73)), upper_staff, "these are different from 'ellipses'", expressive_font, scale=0.8)
-    Text((unit(28 + dynOffset), unit(-70)), upper_staff, "ellipses can be rotated, whereas stones cannot", expressive_font, scale=0.8)
+if len(sys.argv) > 1:
+    if "a" in str(sys.argv[1]):
+        Text((unit(28 + dynOffset), unit(-76)), upper_staff, "clusters of stones (see function).", expressive_font, scale=0.8)
+        Text((unit(28 + dynOffset), unit(-73.5)), upper_staff, "these are different from 'ellipses'", expressive_font, scale=0.8)
+        Text((unit(28 + dynOffset), unit(-71)), upper_staff, "ellipses can be rotated, whereas stones cannot", expressive_font, scale=0.8)
 
 
-
-
-
-
-
-
-
-if "-a" in str(sys.argv):
-    Text((unit(-8 + dynOffset), unit(-34)), upper_staff3, "auto-generated haiku using vocabularies based on references", expressive_font, scale=0.8)
-    Text((unit(-8 + dynOffset), unit(-31)), upper_staff3, "to types of stone, metals, or woods", expressive_font, scale=0.8)
-    Text((unit(-8 + dynOffset), unit(-28)), upper_staff3, "haikus could be read, interpreted, played back or simply inform the mood:", expressive_font, scale=0.8)
+if len(sys.argv) > 1:
+    if "a" in str(sys.argv[1]):
+        Text((unit(-8 + dynOffset), unit(-34)), upper_staff3, "auto-generated haiku using vocabularies based on references", expressive_font, scale=0.8)
+        Text((unit(-8 + dynOffset), unit(-31.5)), upper_staff3, "to types of stone, metals, or woods", expressive_font, scale=0.8)
+        Text((unit(-8 + dynOffset), unit(-29)), upper_staff3, "haikus could be read, interpreted, played back or simply inform the mood:", expressive_font, scale=0.8)
 
 haikuText = haiku()
 #text = Text((Mm(50), Mm(-10)), None, haikuText, breakable=True)
@@ -423,9 +422,11 @@ text = RichText((Mm(270), Mm(140)), None, haikuText)
 # num, parent, length, height (-height <> height), xPos, yPos, xoffset, yoffset
 manytings(20, 0, 35, 1.5, 70, 20, 50, 50+percVOffset)
 
-if "-a" in str(sys.argv):
-    Text((unit(-4 + dynOffset), unit(-36)), upper_staff, "a cluster of 'tings' to be played on resonating metal objects", expressive_font, scale=0.8)
-
+if len(sys.argv) > 1:
+    if "a" in str(sys.argv[1]):
+        Text((unit(-4 + dynOffset), unit(-36)), upper_staff, "a cluster of 'tings' to be played on resonating metal objects", expressive_font, scale=0.8)
+        Text((unit(-4 + dynOffset), unit(-33.5)), upper_staff, "resonance according to ting length?", expressive_font, scale=0.8)
+        Text((unit(-4 + dynOffset), unit(-31)), upper_staff, "volume according to ting height?", expressive_font, scale=0.8)
 
 
 
@@ -437,10 +438,51 @@ if "-a" in str(sys.argv):
 # num, parent (pageNum), xMin, xMax, yMin, yMax, length, height, rgba, alphaRand, rotation, rotationRand
 manySticks(40, 0, 180, 280, 40+percVOffset, 60+percVOffset, 12, 4, [165, 42, 42, 255], 0.9, [358, 362])
 
+if len(sys.argv) > 1:
+    if "a" in str(sys.argv[1]):
+        Text((unit(70 + dynOffset), unit(-40)), upper_staff, "a cluster of 'sticks' to be played on resonating wooden objects", expressive_font, scale=0.8)
 
 
 
+###################################################################################################
+# curves implemented using unthinking things bezier curve data
+###################################################################################################
 
+random.seed()
+curveSizeX = (10 + (5*random.random()))
+curveSizeY = (4 + (2*random.random()))
+
+curveListX = [ ]
+curveListY = [ ]
+for i in range(0, 9):
+    curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
+    curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
+
+curve = Path((Mm(305), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.5)))
+curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
+curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
+curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
+
+
+random.seed()
+curveSizeX = (10 + (5*random.random()))
+curveSizeY = (4 + (2*random.random()))
+
+curveListX = [ ]
+curveListY = [ ]
+for i in range(0, 9):
+    curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
+    curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
+
+curve = Path((Mm(325), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.5)))
+curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
+curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
+curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
+
+if len(sys.argv) > 1:
+    if "a" in str(sys.argv[1]):
+        Text((unit(125 + dynOffset), unit(-70)), upper_staff, "curves implemented using bezier functions", expressive_font, scale=0.8)
+        Text((unit(125 + dynOffset), unit(-67.5)), upper_staff, "curves indicate rubbing stones", expressive_font, scale=0.8)
 
 
 ###################################################################################################
@@ -483,17 +525,19 @@ staffClef = Clef(unit(0), staffCurve, "tenor") #line
 
 Dynamic((unit(-4), unit(-85)), staffCurve, "p")
 
-if "-a" in str(sys.argv):
-    Text((unit(0), unit(-98)), staffCurve, "'chords' of stones (or wood or metal)", expressive_font)
-    Text((unit(0), unit(-95)), staffCurve, "technically, these are lineVOfEllipses (vertical lines of ellipses)", expressive_font)
-    Text((unit(0), unit(-79)), staffCurve, "should amplitude be determined by ellipse size?", expressive_font)
+if len(sys.argv) > 1:
+    if "a" in str(sys.argv[1]):
+        Text((unit(0), unit(-98)), staffCurve, "'chords' of stones (or wood or metal)", expressive_font)
+        Text((unit(0), unit(-95)), staffCurve, "technically, these are lineVOfEllipses (vertical lines of ellipses)", expressive_font)
+        Text((unit(0), unit(-79)), staffCurve, "should amplitude be determined by ellipse size?", expressive_font)
 
 haikuText = haiku()
 RichText((Mm(260), Mm(80)), neoscore.document.pages[1], haikuText)
 
-if "-a" in str(sys.argv):
-    Text((unit(70), unit(-92)), staffCurve, "an elaborate cluster of stones, metal and wood", expressive_font)
-    Text((unit(70), unit(-89)), staffCurve, "this would require a particular suspended percussion set up", expressive_font)
+if len(sys.argv) > 1:
+    if "a" in str(sys.argv[1]):
+        Text((unit(70), unit(-92)), staffCurve, "an elaborate cluster of stones, metal and wood", expressive_font)
+        Text((unit(70), unit(-89)), staffCurve, "this would require a particular suspended percussion set up", expressive_font)
 
 # num, length, height (-height <> height), xPos, yPos, xoffset, yoffset, rotation, color
 manyEllipses(40, pageNum, 2, 2, 120, 20, 140, 40, 360, "#000000ff")
@@ -543,43 +587,6 @@ MusicText((Mm(120), unit(4)), staffCurve, random_wiggles)
 
 
 
-###################################################################################################
-# a different method
-###################################################################################################
-
-
-
-
-random.seed()
-curveSizeX = (10 + (5*random.random()))
-curveSizeY = (4 + (2*random.random()))
-
-curveListX = [ ]
-curveListY = [ ]
-for i in range(0, 9):
-    curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
-    curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
-
-curve = Path((Mm(310), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.5)))
-curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
-curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
-curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
-
-
-random.seed()
-curveSizeX = (10 + (5*random.random()))
-curveSizeY = (4 + (2*random.random()))
-
-curveListX = [ ]
-curveListY = [ ]
-for i in range(0, 9):
-    curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
-    curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
-
-curve = Path((Mm(330), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.5)))
-curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
-curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
-curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
 
 
 
@@ -626,6 +633,34 @@ Text((unit(50), unit(-25)), staffCurve, "sul pont., spiccatto, staccattisimmo, a
 Dynamic((unit(50), unit(-10)), staffCurve, "ppp")
 
 
+###################################################################################################
+# final gesture
+
+xPoints = [random.randrange(296, 304, 1), random.randrange(304, 312, 1), random.randrange(311, 323, 1), random.randrange(318, 330, 1)]
+yPoints1 = [random.randrange(8, 12, 1), random.randrange(10, 16, 1), random.randrange(5, 9, 1), random.randrange(10, 14, 1)]
+yPoints2 = [random.randrange(8, 12, 1)+200, random.randrange(10, 16, 1)+200, random.randrange(5, 9, 1)+200, random.randrange(10, 14, 1)+200]
+
+# oneEllipse(xPos, yPos, parent, width, height, rotation, color)
+oneEllipse(xPoints[0], yPoints1[0], neoscore.document.pages[1], 3, 3, random.randrange(0, 360, 1), "#000000ff")
+oneEllipse(xPoints[1], yPoints1[1], neoscore.document.pages[1], 3, 3, random.randrange(0, 360, 1), "#000000ff")
+oneEllipse(xPoints[2], yPoints1[2], neoscore.document.pages[1], 3, 3, random.randrange(0, 360, 1), "#000000ff")
+oneEllipse(xPoints[3], yPoints1[3], neoscore.document.pages[1], 3, 3, random.randrange(0, 360, 1), "#000000ff")
+
+
+oneEllipse(xPoints[0], yPoints2[0], neoscore.document.pages[1], 3, 3, random.randrange(0, 360, 1), "#000000ff")
+oneEllipse(xPoints[1], yPoints2[1], neoscore.document.pages[1], 3, 3, random.randrange(0, 360, 1), "#000000ff")
+oneEllipse(xPoints[2], yPoints2[2], neoscore.document.pages[1], 3, 3, random.randrange(0, 360, 1), "#000000ff")
+oneEllipse(xPoints[3], yPoints2[3], neoscore.document.pages[1], 3, 3, random.randrange(0, 360, 1), "#000000ff")
+
+brush = Brush(Color(0, 0, 0, 255))
+pen = Pen("000000", Mm(0.25), PenPattern.DOT)
+
+# Path.straight_line((Mm(xPoints[0]), Mm(yPoints1[0])), neoscore.document.pages[1], (Mm(xPoints[0]), Mm(yPoints2[0])), neoscore.document.pages[1], Brush(Color(0, 0, 0, 255)), Pen(color="#000000ff", thickness=Mm(0.5)))
+
+Path.straight_line((Mm(xPoints[0]), Mm(yPoints1[0])), neoscore.document.pages[1], (Mm(xPoints[0]), Mm(yPoints2[0])), neoscore.document.pages[1], brush, pen)
+Path.straight_line((Mm(xPoints[1]), Mm(yPoints1[1])), neoscore.document.pages[1], (Mm(xPoints[1]), Mm(yPoints2[1])), neoscore.document.pages[1], brush, pen)
+Path.straight_line((Mm(xPoints[2]), Mm(yPoints1[2])), neoscore.document.pages[1], (Mm(xPoints[2]), Mm(yPoints2[2])), neoscore.document.pages[1], brush, pen)
+Path.straight_line((Mm(xPoints[3]), Mm(yPoints1[3])), neoscore.document.pages[1], (Mm(xPoints[3]), Mm(yPoints2[3])), neoscore.document.pages[1], brush, pen)
 
 
 ###################################################################################################
@@ -633,10 +668,14 @@ Dynamic((unit(50), unit(-10)), staffCurve, "ppp")
 # rendering
 ###################################################################################################
 
-if "-d" in str(sys.argv):
-    neoscore.show(refresh_func)
+if len(sys.argv) > 1:
+    if "d" in str(sys.argv[1]):
+        neoscore.show(refresh_func)
+    else:
+        render_example("songs003")
 else:
     render_example("songs003")
+
 
 
 #render_example("songs003")

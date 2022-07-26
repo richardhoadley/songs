@@ -5,7 +5,8 @@ import tempfile
 
 from neoscore.core import neoscore
 
-print("Number of arguments: ", str(sys.argv))
+#print("Number of arguments: ", str(sys.argv))
+#print("Number of arguments: ", len(sys.argv))
 
 """Scaffolding for example execution"""
 
