@@ -65,6 +65,7 @@ client.send(msg)
 pageWidth = 360
 pageHeight = 250
 margins = 10
+linesColour = "#ddddddff"
 
 neoscore.setup(paper=Paper(Mm(pageWidth), Mm(pageHeight), Mm(margins), Mm(margins), Mm(margins), Mm(margins)))
 
@@ -82,15 +83,7 @@ random.shuffle(preposition_list)
 title = Text((Mm(120), Mm(12)), None, "Songs " + preposition_list[0] + materials_list[0] + ", " + materials_list[1] + " and " + materials_list[2], scale=1.5)
 
 # the dividing line(s)
-l1 = Path.straight_line(
-                        (Mm(0), Mm((pageHeight-(margins*2))*0.08)),
-                        None,
-                        (Mm((pageWidth-(margins*2))), Mm(0)),
-                        None,
-                        #Brush(Color(255, 255, 0, int(40*randColour))),
-                        Brush(Color(200, 200, 200, 255)),
-                        Pen(color="#ccccccff", thickness=Mm(3.5)),
-                        )
+l1 = Path.straight_line((Mm(0), Mm((pageHeight-(margins*2))*0.08)), None, (Mm((pageWidth-(margins*2))), Mm(0)), None, Brush(Color(200, 200, 200, 255)), Pen(color=linesColour, thickness=Mm(3.5)) )
 
 
 # SCORE ###################################################
@@ -99,7 +92,7 @@ l1 = Path.straight_line(
 Text((Mm(5), Mm(((pageHeight-(margins*2))*0.08)+10)), None, "percussion", scale=1.1)
 
 # rect around the name
-r1 = Path.rect((Mm(2), Mm(20)), None, Mm(32), Mm(14), Brush(Color(255, 255, 255, 0)), Pen(color="#aaaaaaff", thickness=Mm(1.2)))
+r1 = Path.rect((Mm(2), Mm(20)), None, Mm(32), Mm(14), Brush(Color(255, 255, 255, 0)), Pen(color=linesColour, thickness=Mm(1.2)))
 
 expressive_font = Font("Lora", Mm(4), italic=True)
 
@@ -130,13 +123,13 @@ InstrumentName((upper_staff.unit(-3), upper_staff.unit(2)), upper_staff, "melody
 l1 = Path.straight_line( (Mm(0), Mm(0)), None, (Mm(0), Mm(pageHeight-(margins*2))), None, Brush(Color(255, 255, 0, 30)), Pen(color="#ff0000", thickness=Mm(0.5)))
 
 # the dividing line between horizontal sections
-Path.straight_line((Mm(0), Mm((pageHeight-(margins*2))*0.5)), None, (Mm((pageWidth-(margins*2))), Mm(0)), None, Brush(Color(200, 200, 200, 255)), Pen(color="#ccccccff", thickness=Mm(3.5)) )
+Path.straight_line((Mm(0), Mm((pageHeight-(margins*2))*0.5)), None, (Mm((pageWidth-(margins*2))), Mm(0)), None, Brush(Color(200, 200, 200, 255)), Pen(color=linesColour, thickness=Mm(3.5)) )
 
 # instrument name
 Text((Mm(5), Mm(((pageHeight-(margins*2))*0.5)+10)), None, "melody instrument", scale=1.1)
 
 # rect around instrument name
-r2 = Path.rect((Mm(2), Mm(((pageHeight-(margins*2))*0.5)+2)), None, Mm(48), Mm(14), Brush(Color(255, 255, 255, 0)), Pen(color="#aaaaaaff", thickness=Mm(1.2)))
+r2 = Path.rect((Mm(2), Mm(((pageHeight-(margins*2))*0.5)+2)), None, Mm(48), Mm(14), Brush(Color(255, 255, 255, 0)), Pen(color=linesColour, thickness=Mm(1.2)))
 
 
 
@@ -207,13 +200,22 @@ upper_clef = Clef(unit(0), upper_staff, "treble") # single note
 
 Text((unit(-1), unit(10.5)), upper_staff, "molto espressivo", expressive_font)
 
-Chordrest(unit(0), upper_staff, ["g'"], Duration(1, 1))
+note_list = list(["g'", "f#'", "ab'"])
+random.shuffle(note_list)
+
+Chordrest(unit(1), upper_staff, [note_list[0]], Duration(1, 1))
 
 pp = Dynamic((unit(0), unit(6.5)), upper_staff, "pp")
 ppr = Dynamic((unit(18), unit(6.5)), upper_staff, "pp")
-p = Dynamic((unit(10), unit(6.5)), upper_staff, "p")
+p = Dynamic((unit(10), unit(6.5)), upper_staff, "mf")
 hairpin = Hairpin((Mm(6), Mm(0)), pp, (Mm(-2), Mm(0)), p, DirectionX.RIGHT)
 hairpin = Hairpin((Mm(6), Mm(0)), p, (Mm(-2), Mm(0)), ppr, DirectionX.LEFT)
+
+
+if len(sys.argv) > 1:
+    if "a" in str(sys.argv[1]):
+        Text((unit(34), unit(20)), upper_staff, "• slur from f# to ab does not seem to be correctly rendered", expressive_font, scale=0.8)
+        Text((unit(34), unit(23)), upper_staff, "it doesn't seem to be possible to use slurs with a beamed group", expressive_font, scale=0.8)
 
 
 # Upper staff notes
@@ -223,29 +225,32 @@ nOffset = 20
 Dynamic((unit(0), unit(6.5)), upper_staff2, "mf")
 Text((unit(-1), unit(10.5)), upper_staff2, "molto espressivo", expressive_font)
 
-slurStart = Chordrest(unit(0), upper_staff2, ["g'"], Duration(1, 2))
+slurStart = Chordrest(unit(1), upper_staff2, ["g'"], Duration(1, 2))
 slurEnd = Chordrest(unit(8), upper_staff2, ["f#'"], Duration(1, 1))
 Slur((ZERO, unit(-4)), slurStart.stem.end_point, slurEnd.extra_attachment_point, slurEnd, direction=DirectionY.UP)
 
-slurStart = Chordrest(unit(16), upper_staff2, ["ab"], Duration(1, 8))
-slurEnd = Chordrest(unit(18), upper_staff2, ["g'"], Duration(1, 1))
+slurStart = Chordrest(unit(18), upper_staff2, ["ab"], Duration(1, 8))
+slurEnd = Chordrest(unit(20), upper_staff2, ["g'"], Duration(1, 1))
 Slur((ZERO, unit(0)), slurStart.stem.end_point, slurEnd.extra_attachment_point, slurEnd, direction=DirectionY.UP)
 
 
-slurStart = Chordrest(unit(26), upper_staff2, ["f#'"], Duration(1, 2))
-slurEnd = Chordrest(unit(30), upper_staff2, ["ab"], Duration(1, 2))
+slurStart = Chordrest(unit(28), upper_staff2, ["f#'"], Duration(1, 2))
+slurEnd = Chordrest(unit(32), upper_staff2, ["ab"], Duration(1, 2))
 # slur attaches to the lower side of a semi-breve?
 Slur((ZERO, unit(-4)), slurStart.stem.end_point, slurEnd.extra_attachment_point, slurEnd, direction=DirectionY.UP)
 
 
-Clef(Mm(60), upper_staff2, 'bass')
+Clef(Mm(67), upper_staff2, 'bass')
+
+note_list = list(["a,,", "bn,,", "bb,,", "c#,"])
+random.shuffle(note_list)
 
 # slurs don't seem to work within this grouping situation...
 group = [
-         Chordrest(unit(46), upper_staff2, ["a,,"], Duration(1, 16)),
-         Chordrest(unit(48), upper_staff2, ["b,,"], Duration(1, 16)),
-         Chordrest(unit(50), upper_staff2, ["bb,,"], Duration(1, 16)),
-         Chordrest(unit(52), upper_staff2, ["c#,"], Duration(1, 16)),
+         Chordrest(unit(46), upper_staff2, [note_list[0]], Duration(1, 16)),
+         Chordrest(unit(48), upper_staff2, [note_list[1]], Duration(1, 16)),
+         Chordrest(unit(50), upper_staff2, [note_list[2]], Duration(1, 16)),
+         Chordrest(unit(52), upper_staff2, [note_list[3]], Duration(1, 16)),
          #Slur((ZERO, unit(0)), slurStart.stem.end_point, slurEnd.extra_attachment_point, slurEnd, direction=DirectionY.UP)
          ]
 
@@ -355,8 +360,10 @@ if len(sys.argv) > 1:
 ###################################################################################################
 
 random.seed()
-curveSizeX = (10 + (5*random.random()))
-curveSizeY = (4 + (2*random.random()))
+#curveSizeX = (10 + (5*random.random()))
+#curveSizeY = (4 + (2*random.random()))
+curveSizeX = (6 + (2*random.random()))
+curveSizeY = (3 + (1*random.random()))
 
 curveListX = [ ]
 curveListY = [ ]
@@ -364,15 +371,15 @@ for i in range(0, 9):
     curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
     curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
 
-curve = Path((Mm(305), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.5)))
+curve = Path((Mm(290), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.25)))
 curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
 curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
 curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
 
 
 random.seed()
-curveSizeX = (10 + (5*random.random()))
-curveSizeY = (4 + (2*random.random()))
+curveSizeX = (6 + (2*random.random()))
+curveSizeY = (3 + (1*random.random()))
 
 curveListX = [ ]
 curveListY = [ ]
@@ -380,10 +387,42 @@ for i in range(0, 9):
     curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
     curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
 
-curve = Path((Mm(325), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.5)))
+curve = Path((Mm(300), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.25)))
 curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
 curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
 curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
+
+
+random.seed()
+curveSizeX = (6 + (2*random.random()))
+curveSizeY = (3 + (1*random.random()))
+curveListX = [ ]
+curveListY = [ ]
+for i in range(0, 9):
+    curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
+    curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
+
+curve = Path((Mm(310), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.25)))
+curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
+curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
+curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
+
+random.seed()
+curveSizeX = (6 + (2*random.random()))
+curveSizeY = (3 + (1*random.random()))
+curveListX = [ ]
+curveListY = [ ]
+for i in range(0, 9):
+    curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
+    curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
+
+curve = Path((Mm(320), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.25)))
+curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
+curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
+curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
+
+
+
 
 if len(sys.argv) > 1:
     if "a" in str(sys.argv[1]):
@@ -400,7 +439,7 @@ pageNum = 1
 
 
 # the dividing line
-Path.straight_line( (Mm(0), Mm((pageHeight-(margins*2))*0.5)), neoscore.document.pages[pageNum], (Mm((pageWidth-(margins*2))), Mm((pageHeight-(margins*2))*0.5)), neoscore.document.pages[pageNum], Brush(Color(200, 200, 200, 255)), Pen(color="#ccccccff", thickness=Mm(3.5)) )
+Path.straight_line( (Mm(0), Mm((pageHeight-(margins*2))*0.5)), neoscore.document.pages[pageNum], (Mm((pageWidth-(margins*2))), Mm((pageHeight-(margins*2))*0.5)), neoscore.document.pages[pageNum], Brush(Color(200, 200, 200, 255)), Pen(color=linesColour, thickness=Mm(3.5)) )
 
 #Text((Mm(5), Mm(((pageHeight-(margins*2))*0.5)+10)), None, "melody instrument", scale=1.1)
 
