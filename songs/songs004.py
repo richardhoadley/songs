@@ -543,9 +543,9 @@ if len(sys.argv) > 1:
     if "dy" in str(sys.argv[1]):
         neoscore.show(refresh_func)
     else:
-        render_example("songs003")
+        render_example("songs004")
 else:
-    render_example("songs003")
+    render_example("songs004")
 
 
 
