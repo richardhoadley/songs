@@ -6,6 +6,33 @@ from neoscore.core import neoscore
 from neoscore.core.path import Path
 from neoscore.core.units import ZERO, Mm
 from neoscore.core.color import Color
+from neoscore.core.brush import Brush
+from neoscore.core.pen import Pen
+
+
+##################################
+# bezierCurves
+
+def bezierCurves(xSize=6, ySize=3, xRand=2, yRand=1, xPos=290, yPos=30, percVOffset=20):
+    random.seed()
+    curveSizeX = (xSize + (xRand*random.random()))
+    curveSizeY = (ySize + (yRand*random.random()))
+
+    curveListX = [ ]
+    curveListY = [ ]
+    
+    for i in range(0, 9):
+        curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
+        curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
+
+    curve = Path((Mm(xPos), Mm(yPos+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.25)))
+    curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
+    curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
+    curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
+
+
+
+
 
 
 

@@ -140,6 +140,7 @@ r2 = Path.rect((Mm(2), Mm(((pageHeight-(margins*2))*0.5)+2)), None, Mm(48), Mm(1
 # python3 songs004.py -d
 
 startTime = time.time()
+timeFactor = 2
 
 def setStartTime():
     startTime = time.time()
@@ -150,9 +151,10 @@ def countTime():
     return(timeNow)
 
 
+# def refresh_func(time, timeFactor):
 def refresh_func(time):
     thisTime = countTime()
-    linePos = (thisTime-startTime)*6 # higher final number = more movement
+    linePos = (thisTime-startTime)*timeFactor # higher final number = more movement
     l1.x = Mm(linePos)
     if linePos > 20.0:
         nowTime = setStartTime()
@@ -356,73 +358,13 @@ if len(sys.argv) > 1:
 
 
 ###################################################################################################
-# curves implemented using unthinking things bezier curve data
+# curves implemented using unthinking things bezier curve data (see functions)
 ###################################################################################################
 
-random.seed()
-#curveSizeX = (10 + (5*random.random()))
-#curveSizeY = (4 + (2*random.random()))
-curveSizeX = (6 + (2*random.random()))
-curveSizeY = (3 + (1*random.random()))
-
-curveListX = [ ]
-curveListY = [ ]
-for i in range(0, 9):
-    curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
-    curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
-
-curve = Path((Mm(290), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.25)))
-curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
-curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
-curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
-
-
-random.seed()
-curveSizeX = (6 + (2*random.random()))
-curveSizeY = (3 + (1*random.random()))
-
-curveListX = [ ]
-curveListY = [ ]
-for i in range(0, 9):
-    curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
-    curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
-
-curve = Path((Mm(300), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.25)))
-curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
-curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
-curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
-
-
-random.seed()
-curveSizeX = (6 + (2*random.random()))
-curveSizeY = (3 + (1*random.random()))
-curveListX = [ ]
-curveListY = [ ]
-for i in range(0, 9):
-    curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
-    curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
-
-curve = Path((Mm(310), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.25)))
-curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
-curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
-curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
-
-random.seed()
-curveSizeX = (6 + (2*random.random()))
-curveSizeY = (3 + (1*random.random()))
-curveListX = [ ]
-curveListY = [ ]
-for i in range(0, 9):
-    curveListX.append(((curveSizeX*2)*random.random())-curveSizeX)
-    curveListY.append(((curveSizeY*2)*random.random())-curveSizeY)
-
-curve = Path((Mm(320), Mm(30+percVOffset)), neoscore.document.pages[0], Brush(color="#ffffff00"), Pen(color="#000000ff", thickness=Mm(0.25)))
-curve.cubic_to(Mm(curveListX[0]), Mm(curveListY[0]), Mm(curveListX[1]), Mm(curveListY[1]), Mm(curveListX[2]), Mm(curveListY[2]))
-curve.cubic_to(Mm(curveListX[3]), Mm(curveListY[3]), Mm(curveListX[4]), Mm(curveListY[4]), Mm(curveListX[5]), Mm(curveListY[5]))
-curve.cubic_to(Mm(curveListX[6]), Mm(curveListY[6]), Mm(curveListX[7]), Mm(curveListY[7]), Mm(curveListX[8]), Mm(curveListY[8]))
-
-
-
+bezierCurves(xPos=290)
+bezierCurves(xPos=303)
+bezierCurves(xPos=316)
+bezierCurves(xPos=329)
 
 if len(sys.argv) > 1:
     if "a" in str(sys.argv[1]):
@@ -580,15 +522,12 @@ Text((unit(150), unit(-7)), staffCurve, "staccatissimmo", expressive_font)
 
 if len(sys.argv) > 1:
     if "dy" in str(sys.argv[1]):
+        timeFactor = 12 # higher number faster movement
         neoscore.show(refresh_func)
     else:
         render_example("songs004")
 else:
     render_example("songs004")
-
-
-
-#render_example("songs003")
 
 
 

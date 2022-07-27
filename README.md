@@ -18,8 +18,8 @@ __2. Running the score__
 - Run "python3 songs004.py" and the frequency of the tone should change, showing successful OSC communication between neoscore and SuperCollider
 
 __3. Flags__
-- '-a' includes a variety of descriptive and (hopefully) helpful _a_nnotations in the score
-- '-dy' includes a _dy_namic cursor
+- '-a' includes a variety of descriptive and (hopefully) helpful annotations in the score
+- '-dy' includes a dynamic cursor
 - e.g. "python3 songs004.py -ady" includes both annotations and dynamic cursor
 - These flags must be a part of the first group of flags
 - NB the first two flags here are strictly provisional in nature
