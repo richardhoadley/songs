@@ -45,3 +45,4 @@ def render_example(name: str):
     else:
         display_page_geometry = "--hide-page-geometry" not in sys.argv
         neoscore.show(display_page_geometry=display_page_geometry)
+
