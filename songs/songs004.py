@@ -111,8 +111,6 @@ upper_staff2 = Staff((Mm(100), Mm(165)), flowable, Mm(100), staff_group)
 unit = upper_staff.unit
 unit2 = upper_staff.unit
 upper_clef2 = Clef(unit2(0), upper_staff2, "treble") #melody
-#KeySignature(ZERO, upper_staff, "g_major")
-#TimeSignature(ZERO, upper_staff, (3, 4))
 
 InstrumentName((upper_staff.unit(-3), upper_staff.unit(2)), upper_staff, "melody", "mel")
 
@@ -227,8 +225,11 @@ nOffset = 20
 Dynamic((unit(0), unit(6.5)), upper_staff2, "mf")
 Text((unit(-1), unit(10.5)), upper_staff2, "molto espressivo", expressive_font)
 
-slurStart = Chordrest(unit(1), upper_staff2, ["g'"], Duration(1, 2))
-slurEnd = Chordrest(unit(8), upper_staff2, ["f#'"], Duration(1, 1))
+note_list = list(["g'", "f#'"])
+random.shuffle(note_list)
+
+slurStart = Chordrest(unit(1), upper_staff2, [note_list[0]], Duration(1, 2))
+slurEnd = Chordrest(unit(8), upper_staff2, [note_list[1]], Duration(1, 1))
 Slur((ZERO, unit(-4)), slurStart.stem.end_point, slurEnd.extra_attachment_point, slurEnd, direction=DirectionY.UP)
 
 slurStart = Chordrest(unit(18), upper_staff2, ["ab"], Duration(1, 8))
