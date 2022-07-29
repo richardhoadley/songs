@@ -11,7 +11,8 @@ __1. Songs for Metal, Stone and Wood__
 __2. Running the score__
 - cd to the score directory, e.g. "cd '/Users/rich/../neoscore-main/songs/'"
 - Run "python3 songs004.py"
-- If you open the "neoscore-sc-osc.scd" file in SuperCollider and run the contents sequentially: 
+- If you want to test Open Sound Control (OSC) communication, download and install pyOSC3 from [https://pypi.org/project/pyOSC3/](https://pypi.org/project/pyOSC3/)
+- Open the "neoscore-sc-osc.scd" file in SuperCollider and run the contents sequentially: 
 	- s.boot
 	- pause until the server bootsl
 	- run the other code block: you should hear a tone
